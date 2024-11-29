@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
+import taskRouter from "./routes/taskRoutes.js";
 const app = express();
 
 app.use(express.json());
@@ -11,6 +12,10 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.send("Welcome to task management api");
 });
+
+// ----- Routes ------
+app.use("/api/v1/tasks", taskRouter)
+
 
 
 // ----- Errors handler ------

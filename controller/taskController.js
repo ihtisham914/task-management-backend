@@ -70,3 +70,21 @@ export const updateTask = async (req, res) => {
         });
     }
 }
+
+// DELETE TASK
+export const deleteTask = async (req, res) => {
+    const { id } = req.params
+    try {
+        await TaskModel.findByIdAndDelete(id)
+        res.status(200).json({
+            status: 'success',
+            message: 'Task deleted successfully'
+        })
+    } catch (error) {
+        res.status(500).json({
+            status: 500,
+            success: false,
+            message: error.message,
+        });
+    }
+}

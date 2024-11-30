@@ -1,6 +1,11 @@
 import bcrypt from "bcryptjs/dist/bcrypt.js";
 import { UserModel } from "../model/userModel.js";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
+
+dotenv.config();
+const JWT_SECRET = process.env.JWT_SECRET
 
 
 // SIGNUP USER
@@ -12,10 +17,16 @@ export const signupUser = async (req, res) => {
 
     try {
         const user = await UserModel.create({ name, email, password: hashedPassword })
+
+        const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, {
+            expiresIn: '1h'
+        });
+
         res.status(201).json({
             status: 201,
             success: true,
             data: user,
+            token
         });
     } catch (error) {
         res.status(500).json({
@@ -47,10 +58,16 @@ export const loginUser = async (req, res) => {
                 message: "Invalid credentials",
             });
         }
+
+        const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, {
+            expiresIn: '1h',
+        });
+
         res.status(200).json({
             status: 200,
             success: true,
             data: user,
+            token
         });
     } catch (error) {
         res.status(500).json({

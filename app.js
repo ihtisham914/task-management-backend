@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import taskRouter from "./routes/taskRoutes.js";
+import userRouter from "./routes/userRoutes.js";
 const app = express();
 
 app.use(express.json());
@@ -15,6 +16,7 @@ app.get("/", (req, res) => {
 
 // ----- Routes ------
 app.use("/api/v1/tasks", taskRouter)
+app.use("/api/v1/user", userRouter)
 
 
 

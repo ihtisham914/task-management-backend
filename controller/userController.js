@@ -33,7 +33,7 @@ export const signupUser = async (req, res) => {
         res.status(201).json({
             status: 201,
             success: true,
-            data: user,
+            user,
             token
         });
     } catch (error) {
@@ -74,7 +74,7 @@ export const loginUser = async (req, res) => {
         res.status(200).json({
             status: 200,
             success: true,
-            data: user,
+            user,
             token
         });
     } catch (error) {
